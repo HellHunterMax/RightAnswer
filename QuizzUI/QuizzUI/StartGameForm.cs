@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QuizzUI
 {
-    public partial class Form1 : Form
+    public partial class StartGameForm : Form
     {
-        public Form1()
+        public StartGameForm()
         {
             InitializeComponent();
         }
