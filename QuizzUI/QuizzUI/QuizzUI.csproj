@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormFinalScore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFinalScore.Designer.cs">
+      <DependentUpon>FormFinalScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTheQuiz.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStartGame.resx">
       <DependentUpon>FormStartGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFinalScore.resx">
+      <DependentUpon>FormFinalScore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTheQuiz.resx">
       <DependentUpon>FormTheQuiz.cs</DependentUpon>
