@@ -52,6 +52,12 @@
     <Compile Include="FormFinalScore.Designer.cs">
       <DependentUpon>FormFinalScore.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormLeaderboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLeaderboard.Designer.cs">
+      <DependentUpon>FormLeaderboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTheQuiz.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormFinalScore.resx">
       <DependentUpon>FormFinalScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLeaderboard.resx">
+      <DependentUpon>FormLeaderboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTheQuiz.resx">
       <DependentUpon>FormTheQuiz.cs</DependentUpon>
