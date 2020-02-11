@@ -4,6 +4,10 @@ using System.Collections.Generic;
 public class QuestionModel
 {
 	/// <summary>
+	/// The Unique indentifier for the Question.
+	/// </summary>
+	public int Id { get; set; }
+	/// <summary>
 	/// The Question to be asked.
 	/// </summary>
 	public string Question { get; set; }
