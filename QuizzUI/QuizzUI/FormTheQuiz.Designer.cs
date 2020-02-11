@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTheQuiz));
             this.LabelQuestionNumbering = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.PanelForAnswers = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // LabelQuestionNumbering
@@ -56,24 +55,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = resources.GetString("label1.Text");
             // 
-            // PanelForAnswers
-            // 
-            this.PanelForAnswers.Location = new System.Drawing.Point(12, 202);
-            this.PanelForAnswers.Name = "PanelForAnswers";
-            this.PanelForAnswers.Size = new System.Drawing.Size(985, 296);
-            this.PanelForAnswers.TabIndex = 2;
-            // 
             // FormTheQuiz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1017, 518);
-            this.Controls.Add(this.PanelForAnswers);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LabelQuestionNumbering);
             this.Font = new System.Drawing.Font("Arial", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormTheQuiz";
             this.Text = "Right Answer?";
             this.ResumeLayout(false);
@@ -83,8 +74,8 @@
 
         #endregion
 
+        //private QuestionsGrid questionsGrid;
         private System.Windows.Forms.Label LabelQuestionNumbering;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel PanelForAnswers;
     }
 }

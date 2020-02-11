@@ -1,19 +1,62 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuizzUI
 {
     public partial class FormTheQuiz : Form
     {
-        private List<QuestionModel> questionsList= new List<QuestionModel>();
+        private List<QuestionModel> questionsList = new List<QuestionModel>();
         public FormTheQuiz()
         {
-            GetQuestionsList();
+            //TODO choose a Question and initialize.
             InitializeComponent();
+            this.NextQuestion(null, null);
         }
 
+        private void NextQuestion(object sender, MouseEventArgs e)
+        {
+            this.CreateMyPanel(2);
+        }
+
+        private void CreateMyPanel(int numberOfAnswers)
+        {
+            Panel panel1 = new Panel();
+            panel1.Size = new Size(1000, numberOfAnswers * 75);
+            panel1.Location = new Point(12, 200);
+            for (int x = 0; x < numberOfAnswers; x++)
+            {
+                QuestionTile tile = new QuestionTile(x);
+                tile.MouseDown += QuestionTile_MouseDown;
+                panel1.Controls.Add(tile);
+            }
+            this.Controls.Add(panel1);
+
+        }
+
+        private void QuestionTile_MouseDown(object sender, MouseEventArgs e)
+        {
+            QuestionTile tile = (QuestionTile)sender;
+
+            //TODO when tile is pressed check if its the right answer >> add score >> next question.
+
+        }
+        private class QuestionTile : Button
+        {
+            internal Point GridPosition { get; }
+            internal QuestionTile(int x)
+            {
+                this.Name = $"Question_{x}";
+                this.Size = new Size(940, 75);
+                this.Location = new Point(12, x * 75);
+                this.TabIndex = 10 + x;
+                this.GridPosition = new Point(12, x);
+                this.Text = "hello";
+            }
+
+        }
         private void GetQuestionsList()
         {
             string cs = "Server=localhost; Port=5432; User Id=postgres; Password=12345678; Database=Quiz;";
