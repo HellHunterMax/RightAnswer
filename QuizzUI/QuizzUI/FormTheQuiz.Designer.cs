@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTheQuiz));
             this.LabelQuestionNumbering = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LabelQuestion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LabelQuestionNumbering
@@ -44,23 +44,23 @@
             this.LabelQuestionNumbering.TabIndex = 0;
             this.LabelQuestionNumbering.Text = "Question Number 1/10";
             // 
-            // label1
+            // LabelQuestion
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(12, 71);
-            this.label1.MaximumSize = new System.Drawing.Size(1000, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(991, 128);
-            this.label1.TabIndex = 1;
-            this.label1.Text = resources.GetString("label1.Text");
+            this.LabelQuestion.AutoSize = true;
+            this.LabelQuestion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.LabelQuestion.Location = new System.Drawing.Point(12, 71);
+            this.LabelQuestion.MaximumSize = new System.Drawing.Size(1000, 0);
+            this.LabelQuestion.Name = "LabelQuestion";
+            this.LabelQuestion.Size = new System.Drawing.Size(991, 128);
+            this.LabelQuestion.TabIndex = 1;
+            this.LabelQuestion.Text = resources.GetString("LabelQuestion.Text");
             // 
             // FormTheQuiz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1017, 518);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LabelQuestion);
             this.Controls.Add(this.LabelQuestionNumbering);
             this.Font = new System.Drawing.Font("Arial", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -76,6 +76,6 @@
 
         //private QuestionsGrid questionsGrid;
         private System.Windows.Forms.Label LabelQuestionNumbering;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LabelQuestion;
     }
 }
