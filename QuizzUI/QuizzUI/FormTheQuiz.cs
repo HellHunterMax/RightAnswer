@@ -26,8 +26,6 @@ namespace QuizzUI
         /// <summary>
         /// Next Question to be asked.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void NextQuestion()
         {
             if(numberOfQuestionsAsked == numberOfQuestionsToBeAsked)
@@ -57,18 +55,21 @@ namespace QuizzUI
         /// <param name="theQuestion"></param>
         private void CreateMyPanelOfAnswers(QuestionModel theQuestion)
         {
-            int numberOfAnswers = (theQuestion.WrongAnswers.Count + 1);
 
             List<string> questionList = new List<string>();
 
-            questionList.Add(theQuestion.RightAnswer);
+            // Adding possible Answers to the List.
 
+            questionList.Add(theQuestion.RightAnswer);
             foreach(string q in theQuestion.WrongAnswers)
             {
                 questionList.Add(q);
             }
-            MyExtentions.Shuffle<string>(questionList);
+            MyExtentions.Shuffle<string>(questionList); // shuffle the list.
+            int numberOfAnswers = questionList.Count;
 
+
+            //Creating a panel with answers.
             Panel panel1 = new Panel
             {
                 Size = new Size(1000, numberOfAnswers * 75),
