@@ -20,7 +20,7 @@ namespace QuizzUI
 
             InitializeComponent();
 
-            this.NextQuestion(null, null);
+            this.NextQuestion();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace QuizzUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NextQuestion(object sender, MouseEventArgs e)
+        private void NextQuestion()
         {
             if(numberOfQuestionsAsked == numberOfQuestionsToBeAsked)
             {
@@ -88,7 +88,7 @@ namespace QuizzUI
         {
             QuestionTile tile = (QuestionTile)sender;
 
-            NextQuestion(null, null);
+            NextQuestion();
 
             //TODO when tile is pressed check if its the right answer >> add score >> next question.
 
