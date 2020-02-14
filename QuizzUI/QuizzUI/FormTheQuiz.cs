@@ -9,23 +9,36 @@ namespace QuizzUI
     public partial class FormTheQuiz : Form
     {
         private List<QuestionModel> questionsList = new List<QuestionModel>();
-        public FormTheQuiz()
+        private int numberOfQuestionsToBeAsked = 0;
+        private int numberOfQuestionsAsked = 0;
+        public FormTheQuiz(int number)
         {
-            //TODO choose a Question and initialize.
+            numberOfQuestionsToBeAsked = number;
+            GetQuestionsList();
             InitializeComponent();
             this.NextQuestion(null, null);
         }
 
         private void NextQuestion(object sender, MouseEventArgs e)
         {
-            this.CreateMyPanel(2);
+            if(numberOfQuestionsAsked == numberOfQuestionsToBeAsked)
+            {
+                MessageBox.Show("Finished");
+                Application.Exit();
+            }
+            this.CreateMyPanel(questionsList[numberOfQuestionsAsked]);
+            numberOfQuestionsAsked++;
         }
 
-        private void CreateMyPanel(int numberOfAnswers)
+        private void CreateMyPanel(QuestionModel theQuestion)
         {
-            Panel panel1 = new Panel();
-            panel1.Size = new Size(1000, numberOfAnswers * 75);
-            panel1.Location = new Point(12, 200);
+            int numberOfAnswers = (theQuestion.WrongAnswers.Count + 1);
+
+            Panel panel1 = new Panel
+            {
+                Size = new Size(1000, numberOfAnswers * 75),
+                Location = new Point(12, 200)
+            };
             for (int x = 0; x < numberOfAnswers; x++)
             {
                 QuestionTile tile = new QuestionTile(x);
@@ -39,6 +52,8 @@ namespace QuizzUI
         private void QuestionTile_MouseDown(object sender, MouseEventArgs e)
         {
             QuestionTile tile = (QuestionTile)sender;
+
+            NextQuestion(null, null);
 
             //TODO when tile is pressed check if its the right answer >> add score >> next question.
 
@@ -61,44 +76,59 @@ namespace QuizzUI
         {
             string cs = "Server=localhost; Port=5432; User Id=postgres; Password=12345678; Database=Quiz;";
 
-            NpgsqlConnection con = new NpgsqlConnection(cs);
-            try
+            using(NpgsqlConnection con = new NpgsqlConnection(cs))
             {
-                con.Open();
-
-                string sql = "SELECT * FROM Public.\"Questions\"";
-                var cmd = new NpgsqlCommand(sql, con);
-                using (NpgsqlDataReader rdr = cmd.ExecuteReader())
+                try
                 {
-                    while (rdr.Read())
+                    con.Open();
+
+                    string sql = "SELECT * FROM Public.\"Questions\"";
+                    var cmd = new NpgsqlCommand(sql, con);
+                    using (NpgsqlDataReader rdr = cmd.ExecuteReader())
                     {
-                        List<string> wrongAnswersList = new List<string>();
-                        string[] wrongAnswersString = rdr[3] as string[];
-
-                        foreach (string wronganswer in wrongAnswersString)
+                        while (rdr.Read())
                         {
-                            wrongAnswersList.Add(wronganswer);
+                            List<string> wrongAnswersList = new List<string>();
+                            string[] wrongAnswersString = rdr[3] as string[];
+
+                            foreach (string wronganswer in wrongAnswersString)
+                            {
+                                wrongAnswersList.Add(wronganswer);
+                            }
+
+                            QuestionModel a = new QuestionModel()
+                            {
+                                Id = rdr.GetInt32(0),
+                                Question = rdr.GetString(1),
+                                RightAnswer = rdr.GetString(2),
+                                WrongAnswers = wrongAnswersList
+                            };
+                            questionsList.Add(a);
                         }
-
-                        QuestionModel a = new QuestionModel()
-                        {
-                            Id = rdr.GetInt32(0),
-                            Question = rdr.GetString(1),
-                            RightAnswer = rdr.GetString(2),
-                            WrongAnswers = wrongAnswersList
-                        };
-                        questionsList.Add(a);
                     }
+
+                    con.Close();
+                    Shuffle<QuestionModel>(questionsList);
                 }
-
-                con.Close();
+                catch (Exception msg)
+                {
+                    MessageBox.Show(msg.ToString());
+                    throw;
+                }
             }
-            catch (Exception msg)
+
+        }
+        private void Shuffle<QuestionModel>(List<QuestionModel> list)
+        {
+            int n = list.Count;
+            while (n > 1)
             {
-                MessageBox.Show(msg.ToString());
-                throw;
+                n--;
+                int k = ThreadSafeRoom.ThisTreadsRandom.Next(n + 1);
+                QuestionModel value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
-
         }
     }
 }

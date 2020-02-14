@@ -17,7 +17,7 @@ namespace QuizzUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new FormTheQuiz());
+            Application.Run(new FormTheQuiz(1));
             
 
             //Application.Run(new FormStartGame());
