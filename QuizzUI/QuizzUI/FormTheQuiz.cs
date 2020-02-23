@@ -112,6 +112,10 @@ namespace QuizzUI
                 this.Controls.Remove(LabelQuestion);
                 this.Controls.Remove(LabelQuestionNumbering);
                 this.Controls.Remove(panel1);
+
+                LabelQuestionNumbering.Dispose();
+                LabelQuestion.Dispose();
+                panel1.Dispose();
                 NextQuestion();
                 //TODO when tile is pressed check if its the right answer >> add score >> next question.
 
