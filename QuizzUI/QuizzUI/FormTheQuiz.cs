@@ -28,26 +28,17 @@ namespace QuizzUI
         /// </summary>
         private void NextQuestion()
         {
-            if(numberOfQuestionsAsked == numberOfQuestionsToBeAsked)
+            if (numberOfQuestionsAsked == numberOfQuestionsToBeAsked)
             {
                 MessageBox.Show("Finished");
                 Environment.Exit(1);
             }
 
-            PlaceQuestionInForm(questionsList[numberOfQuestionsAsked]);
+
             this.CreateMyPanelOfAnswers(questionsList[numberOfQuestionsAsked]);
             numberOfQuestionsAsked++;
         }
 
-        /// <summary>
-        /// Pasts the Question and Question number to the form.
-        /// </summary>
-        /// <param name="theQuestion">The QuestionModel To be asked</param>
-        private void PlaceQuestionInForm(QuestionModel theQuestion)
-        {
-            LabelQuestionNumbering.Text = "Question Number " + (numberOfQuestionsAsked+1).ToString() + "/" + numberOfQuestionsToBeAsked.ToString();
-            LabelQuestion.Text = theQuestion.Question;
-        }
 
         /// <summary>
         /// Creates a panel with all the possible answers for the asked question.
@@ -55,19 +46,40 @@ namespace QuizzUI
         /// <param name="theQuestion"></param>
         private void CreateMyPanelOfAnswers(QuestionModel theQuestion)
         {
-
             List<string> questionList = new List<string>();
 
             // Adding possible Answers to the List.
 
             questionList.Add(theQuestion.RightAnswer);
-            foreach(string q in theQuestion.WrongAnswers)
+            foreach (string q in theQuestion.WrongAnswers)
             {
                 questionList.Add(q);
             }
             MyExtentions.Shuffle<string>(questionList); // shuffle the list.
             int numberOfAnswers = questionList.Count;
 
+            Label LabelQuestionNumbering = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Arial", 24F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                ForeColor = Color.Green,
+                Location = new Point(284, 26),
+                Name = "LabelQuestionNumbering",
+                Size = new Size(415, 45),
+                TabIndex = 0,
+                Text = "Question Number " + (numberOfQuestionsAsked + 1).ToString() + "/" + numberOfQuestionsToBeAsked.ToString()
+            };
+            Label LabelQuestion = new Label
+            {
+                AutoSize = true,
+                ForeColor = Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0))))),
+                Location = new Point(12, 71),
+                MaximumSize = new Size(1000, 0),
+                Name = "LabelQuestion",
+                Size = new Size(991, 128),
+                TabIndex = 1,
+                Text = theQuestion.Question
+            };
 
             //Creating a panel with answers.
             Panel panel1 = new Panel
@@ -81,19 +93,32 @@ namespace QuizzUI
                 tile.MouseDown += QuestionTile_MouseDown;
                 panel1.Controls.Add(tile);
             }
+            this.Controls.Add(LabelQuestionNumbering);
+            this.Controls.Add(LabelQuestion);
             this.Controls.Add(panel1);
 
+            void QuestionTile_MouseDown(object sender, MouseEventArgs e)
+            {
+                QuestionTile tile = (QuestionTile)sender;
+
+                if (tile.Text == theQuestion.RightAnswer)
+                {
+                    MessageBox.Show("Correct Answer!", "Correct!");
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Answer!", "Wrong!");
+                }
+                this.Controls.Remove(LabelQuestion);
+                this.Controls.Remove(LabelQuestionNumbering);
+                this.Controls.Remove(panel1);
+                NextQuestion();
+                //TODO when tile is pressed check if its the right answer >> add score >> next question.
+
+            }
         }
 
-        private void QuestionTile_MouseDown(object sender, MouseEventArgs e)
-        {
-            QuestionTile tile = (QuestionTile)sender;
-
-            NextQuestion();
-
-            //TODO when tile is pressed check if its the right answer >> add score >> next question.
-
-        }
+        
         private class QuestionTile : Button
         {
             internal Point GridPosition { get; }
@@ -116,7 +141,7 @@ namespace QuizzUI
         {
             string cs = "Server=localhost; Port=5432; User Id=postgres; Password=12345678; Database=Quiz;";
 
-            using(NpgsqlConnection con = new NpgsqlConnection(cs))
+            using (NpgsqlConnection con = new NpgsqlConnection(cs))
             {
                 try
                 {
@@ -158,6 +183,6 @@ namespace QuizzUI
             }
 
         }
-        
+
     }
 }
