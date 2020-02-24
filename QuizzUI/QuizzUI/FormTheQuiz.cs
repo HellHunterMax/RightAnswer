@@ -11,6 +11,8 @@ namespace QuizzUI
         private List<QuestionModel> questionsList = new List<QuestionModel>();
         private int numberOfQuestionsToBeAsked = 0;
         private int numberOfQuestionsAsked = 0;
+        private int score = 0;
+        private int streak = 0;
 
         public FormTheQuiz(int number)
         {
@@ -61,7 +63,7 @@ namespace QuizzUI
             Label LabelQuestionNumbering = new Label
             {
                 AutoSize = true,
-                Font = new Font("Arial", 24F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                //Font = new Font("Arial", 24F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                 ForeColor = Color.Green,
                 Location = new Point(284, 26),
                 Name = "LabelQuestionNumbering",
@@ -80,22 +82,36 @@ namespace QuizzUI
                 TabIndex = 1,
                 Text = theQuestion.Question
             };
+            Label LabelScore = new Label
+            {
+                AutoSize = true,
+                //Font = new Font("Arial", 24F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                ForeColor = Color.Green,
+                Location = new Point(600, 26),
+                Name = "LabelScore",
+                Size = new Size(415, 45),
+                TabIndex = 2,
+                Text = "Score: " + score.ToString() + " Streak: " + streak.ToString()
+            };
+
 
             //Creating a panel with answers.
-            Panel panel1 = new Panel
+            Panel Panel1 = new Panel
             {
-                Size = new Size(1000, numberOfAnswers * 75),
-                Location = new Point(12, 200)
+                Size = new Size(1000, (numberOfAnswers * 75) + 200),
+                Location = new Point(12, 12)
             };
-            for (int x = 0; x < numberOfAnswers; x++)
+            for (int tileNumber = 0; tileNumber < numberOfAnswers; tileNumber++)
             {
-                QuestionTile tile = new QuestionTile(x, questionList[x]);
+                QuestionTile tile = new QuestionTile(tileNumber, questionList[tileNumber]);
                 tile.MouseDown += QuestionTile_MouseDown;
-                panel1.Controls.Add(tile);
+                Panel1.Controls.Add(tile);
             }
-            this.Controls.Add(LabelQuestionNumbering);
-            this.Controls.Add(LabelQuestion);
-            this.Controls.Add(panel1);
+
+            Panel1.Controls.Add(LabelQuestionNumbering);
+            Panel1.Controls.Add(LabelQuestion);
+            Panel1.Controls.Add(LabelScore);
+            this.Controls.Add(Panel1);
 
             void QuestionTile_MouseDown(object sender, MouseEventArgs e)
             {
@@ -103,19 +119,20 @@ namespace QuizzUI
 
                 if (tile.Text == theQuestion.RightAnswer)
                 {
-                    MessageBox.Show("Correct Answer!", "Correct!");
+                    
+                    score += 1 + streak;
+                    streak++;
+                    MessageBox.Show("Correct Answer!\nYour streak = " +streak.ToString() + "\nYour new score = " + score.ToString(), "Correct!");
                 }
                 else
                 {
                     MessageBox.Show("Wrong Answer!", "Wrong!");
+                    streak = 0;
                 }
-                this.Controls.Remove(LabelQuestion);
-                this.Controls.Remove(LabelQuestionNumbering);
-                this.Controls.Remove(panel1);
 
-                LabelQuestionNumbering.Dispose();
-                LabelQuestion.Dispose();
-                panel1.Dispose();
+                this.Controls.Remove(Panel1);
+                Panel1.Dispose();
+
                 NextQuestion();
                 //TODO when tile is pressed check if its the right answer >> add score >> next question.
 
@@ -125,15 +142,15 @@ namespace QuizzUI
         
         private class QuestionTile : Button
         {
-            internal Point GridPosition { get; }
-            internal QuestionTile(int x, string q)
+            //internal Point GridPosition { get; }
+            internal QuestionTile(int tileNumber, string answerText)
             {
-                this.Name = $"Question_{x}";
+                this.Name = $"Question_{tileNumber}";
                 this.Size = new Size(940, 75);
-                this.Location = new Point(12, x * 75);
-                this.TabIndex = 10 + x;
-                this.GridPosition = new Point(12, x);
-                this.Text = q;
+                this.Location = new Point(12,(tileNumber * 75) + 200);
+                this.TabIndex = 10 + tileNumber;
+                //this.GridPosition = new Point(12, tileNumber);
+                this.Text = answerText;
             }
 
         }
