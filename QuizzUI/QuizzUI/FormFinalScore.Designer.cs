@@ -32,6 +32,7 @@
             this.LabelTheScore = new System.Windows.Forms.Label();
             this.LabelEnterName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LabelTheScore
@@ -63,11 +64,22 @@
             this.textBoxName.Size = new System.Drawing.Size(540, 39);
             this.textBoxName.TabIndex = 2;
             // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(334, 134);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(107, 37);
+            this.buttonSave.TabIndex = 3;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
             // FormFinalScore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 167);
+            this.ClientSize = new System.Drawing.Size(737, 185);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.LabelEnterName);
             this.Controls.Add(this.LabelTheScore);
@@ -86,5 +98,6 @@
         private System.Windows.Forms.Label LabelTheScore;
         private System.Windows.Forms.Label LabelEnterName;
         private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.Button buttonSave;
     }
 }

@@ -32,13 +32,15 @@ namespace QuizzUI
         {
             if (numberOfQuestionsAsked == numberOfQuestionsToBeAsked)
             {
-                MessageBox.Show("Finished");
-                Environment.Exit(1);
+                var showFormFinalScore = new FormFinalScore(score);
+                showFormFinalScore.ShowDialog(this);
+                this.Close();
             }
-
-
-            this.CreateMyPanelOfAnswers(questionsList[numberOfQuestionsAsked]);
-            numberOfQuestionsAsked++;
+            else
+            {
+                this.CreateMyPanelOfAnswers(questionsList[numberOfQuestionsAsked]);
+                numberOfQuestionsAsked++;
+            }
         }
 
 
