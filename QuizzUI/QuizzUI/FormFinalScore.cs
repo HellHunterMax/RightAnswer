@@ -5,6 +5,10 @@ namespace QuizzUI
 {
     public partial class FormFinalScore : Form
     {
+        /// <summary>
+        /// This form is to be showed after the quiz is finished so the player can input his name and save the score to the LeaderBoard.
+        /// </summary>
+        /// <param name="finalScore">the final score of the player.</param>
         public FormFinalScore(int finalScore)
         {
             InitializeComponent();

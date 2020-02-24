@@ -38,7 +38,7 @@ namespace QuizzUI
             }
             else
             {
-                this.CreateMyPanelOfAnswers(questionsList[numberOfQuestionsAsked]);
+                this.CreatePanelForQuestion(questionsList[numberOfQuestionsAsked]);
                 numberOfQuestionsAsked++;
             }
         }
@@ -48,7 +48,7 @@ namespace QuizzUI
         /// Creates a panel with all the possible answers for the asked question.
         /// </summary>
         /// <param name="theQuestion"></param>
-        private void CreateMyPanelOfAnswers(QuestionModel theQuestion)
+        private void CreatePanelForQuestion(QuestionModel theQuestion)
         {
             List<string> questionList = new List<string>();
 
